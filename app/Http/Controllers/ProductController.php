@@ -74,7 +74,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
-    {
+    { 
         //
     }
 
@@ -86,8 +86,13 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
-    {
-        //
+    {   
+        $request['detail'] = $request->description;
+        unset($request['description']);
+         $product->update($request->all());
+         return response([
+            'date' => new ProductResource($product)
+        ],Response::HTTP_CREATED);
     }
 
     /**
